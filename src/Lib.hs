@@ -29,21 +29,21 @@ individualToBitStr = map (toStr)
     toStr True = '1'
     toStr False = '0'
 
-mkIndividual :: RandomGen g => g -> Int -> Individual
-mkIndividual gen nGenes = take nGenes $ randoms gen
+mkIndividual :: RandomGen g => Int -> g -> Individual
+mkIndividual nGenes gen = take nGenes $ randoms gen
+
+mkPopulation :: RandomGen g => g -> Int -> Int -> Population
+mkPopulation gen nInd nGenes = randomNTimes gen nInd (mkIndividual nGenes)
 
 -- TODO: can this be implemened with fold? Abstracted into a general structure useful for generations?
 -- Maybe generate a list of len nInd of RandomGen (use fold?), then map over that list with mkIndividual!
-mkPopulation :: RandomGen g => g -> Int -> Int -> Population
-mkPopulation gen nInd nGenes = recurse nInd gen []
+randomNTimes :: RandomGen g => g -> Int -> (g -> a) -> [a]
+randomNTimes gen n f = recurse n gen []
   where
-    recurse :: RandomGen g => Int -> g -> Population -> Population
     recurse 0 _ result = result
-    recurse n gen' result = recurse (n - 1) (nextGen gen') (newInd gen' : result)
+    recurse n gen' result = recurse (n - 1) (nextGen gen') (f gen' : result)
     nextGen :: RandomGen g => g -> g
     nextGen gen' = snd $ next gen'
-    newInd :: RandomGen g => g -> Individual
-    newInd gen' = mkIndividual gen' nGenes
 
 fitness :: Individual -> Int
 fitness = length . filter (id)
