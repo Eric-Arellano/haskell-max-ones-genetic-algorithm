@@ -6,6 +6,8 @@ module Lib
     , bitStrToIndividual
     , individualToBitStr
     , fitness
+    , avgFitness
+    , maxFitness
     , mutate
     , crossover
     , compete
@@ -46,6 +48,14 @@ randomNTimes gen n f = map f genList
 
 fitness :: Individual -> Int
 fitness = length . filter (id)
+
+avgFitness :: Population -> Float
+avgFitness pop = sum popFit / fromIntegral (length pop)
+  where
+    popFit = map (fromIntegral . fitness) pop
+
+maxFitness :: Population -> Int
+maxFitness = maximum . map fitness
 
 mutate :: RandomGen g => g -> Float -> Individual -> Individual
 mutate gen p = map (possiblyInvert) . zip randomList
