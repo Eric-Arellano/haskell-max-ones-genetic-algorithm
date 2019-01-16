@@ -1,3 +1,5 @@
+{-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 module Lib
     ( mkIndividual
     , mkPopulation
@@ -25,20 +27,21 @@ individualToBitStr = map (toStr)
     toStr True = '1'
     toStr False = '0'
 
-mkIndividual :: RandomGen g => Int -> g -> Individual
+mkIndividual :: forall g. RandomGen g => Int -> g -> Individual
 mkIndividual nGenes gen = take nGenes $ randoms gen
 
-mkPopulation :: RandomGen g => g -> Int -> Int -> Population
+mkPopulation :: forall g. RandomGen g => g -> Int -> Int -> Population
 mkPopulation gen nInd nGenes = randomNTimes gen nInd (mkIndividual nGenes)
 
--- TODO: can this be implemened with fold? Abstracted into a general structure useful for generations?
--- Maybe generate a list of len nInd of RandomGen (use fold?), then map over that list with mkIndividual!
-randomNTimes :: RandomGen g => g -> Int -> (g -> a) -> [a]
-randomNTimes gen n f = recurse n gen []
+randomNTimes :: forall a g. RandomGen g => g -> Int -> (g -> a) -> [a]
+randomNTimes gen n f = map f genList
   where
-    recurse 0 _ result = result
-    recurse n gen' result = recurse (n - 1) (nextGen gen') (f gen' : result)
-    nextGen :: RandomGen g => g -> g
+    genList :: [g]
+    genList = genRecurse n gen []
+    genRecurse :: Int -> g -> [g] -> [g]
+    genRecurse 0 _ result = result
+    genRecurse n gen' result = genRecurse (n - 1) (nextGen gen') (gen' : result)
+    nextGen :: g -> g
     nextGen gen' = snd $ next gen'
 
 fitness :: Individual -> Int
