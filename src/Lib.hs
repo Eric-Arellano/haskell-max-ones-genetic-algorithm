@@ -1,6 +1,5 @@
 module Lib
-    ( someFunc
-    , mkIndividual
+    ( mkIndividual
     , mkPopulation
     , bitStrToIndividual
     , individualToBitStr
@@ -11,9 +10,6 @@ module Lib
     ) where
 
 import System.Random
-
-someFunc :: IO ()
-someFunc = putStrLn "Test"
 
 type BitStr = [Char]
 type Bit = Bool

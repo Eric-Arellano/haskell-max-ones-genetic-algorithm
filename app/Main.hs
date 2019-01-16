@@ -1,6 +1,9 @@
 module Main where
 
-import Lib
+import qualified Lib
+import qualified Config
 
 main :: IO ()
-main = someFunc
+main = do
+    config <- Config.readConfig "resources/config.cfg"
+    putStrLn $ show config
