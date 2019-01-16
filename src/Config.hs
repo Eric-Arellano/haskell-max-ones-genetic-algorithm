@@ -9,7 +9,7 @@ import Control.Monad.Except
 -- See http://hackage.haskell.org/package/ConfigFile-1.1.4/docs/Data-ConfigFile.html for docs
 -- and http://tuttlem.github.io/2013/07/04/configfile-basics-in-haskell.html for guide
 
-data ConfigInfo = ConfigInfo { seed :: Float
+data ConfigInfo = ConfigInfo { seed :: Int
                              , mutation :: Float
                              , crossover :: Float
                              , numGenes :: Int
