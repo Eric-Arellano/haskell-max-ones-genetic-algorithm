@@ -42,7 +42,7 @@ randomNTimes gen n f = map f genList
     genList = genRecurse n gen []
     genRecurse :: Int -> g -> [g] -> [g]
     genRecurse 0 _ result = result
-    genRecurse n gen' result = genRecurse (n - 1) (nextGen gen') (gen' : result)
+    genRecurse n' gen' result = genRecurse (n' - 1) (nextGen gen') (gen' : result)
     nextGen :: g -> g
     nextGen gen' = snd $ next gen'
 
@@ -65,7 +65,7 @@ mutate gen p = map (possiblyInvert) . zip randomList
     randomList = randomRs (0.0, 1.0) gen
 
 crossover :: RandomGen g => g -> Float -> Individual -> Individual -> Individual
-crossover gen p ind1 ind2 = ind1
+crossover _gen _p ind1 _ind2 = ind1
 
 compete :: Individual -> Individual -> Individual
 compete i1 i2 = if fitness i1 >= fitness i2 then i1 else i2

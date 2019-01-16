@@ -1,14 +1,13 @@
-name:                simple-ga
+name:                max-ones-ga
 version:             0.1.0.0
-github:              "githubuser/simple-ga"
+github:              "Eric-Arellano/haskell-max-ones-genetic-algorithm"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2019 Author name here"
+author:              "Eric Arellano"
+maintainer:          "ecarell1@asu.edu"
+copyright:           "2019 Eric Arellano"
 
 extra-source-files:
 - README.md
-- ChangeLog.md
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
@@ -17,7 +16,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/simple-ga#readme>
+description:         Please see the README on GitHub at <https://github.com/Eric-Arellano/haskell-max-ones-genetic-algorithm#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -29,23 +28,24 @@ library:
   source-dirs: src
 
 executables:
-  simple-ga-exe:
+  max-ones-exe:
     main:                Main.hs
     source-dirs:         app
-    ghc-options:
+    ghc-options: &ghc_options
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
+    - -Wall
+    - -Wcompat
+    - -Wincomplete-record-updates
+    - -Wincomplete-uni-patterns
     dependencies:
-    - simple-ga
+    - max-ones-ga
 
 tests:
-  simple-ga-test:
+  max-ones-test:
     main:                Spec.hs
     source-dirs:         test
-    ghc-options:
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+    ghc-options: *ghc_options
     dependencies:
-    - simple-ga
+    - max-ones-ga
