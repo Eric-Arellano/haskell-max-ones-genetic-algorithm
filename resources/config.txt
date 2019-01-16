@@ -1,0 +1,6 @@
+seed: 0
+mutation: 0.1
+crossover: 0.01
+num_genes: 8
+num_individuals: 4
+num_generations: 100
