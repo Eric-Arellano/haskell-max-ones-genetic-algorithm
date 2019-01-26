@@ -61,11 +61,11 @@ mutate :: RandomGen g => g -> Float -> Individual -> Individual
 mutate gen p = map (possiblyInvert) . zip randomList
   where
     possiblyInvert :: (Float, Bit) -> Bit 
-    possiblyInvert (ran, x) = if ran > p then x else not x
+    possiblyInvert (ran, x) = if ran < p then not x else x
     randomList = randomRs (0.0, 1.0) gen
 
 crossover :: RandomGen g => g -> Float -> Individual -> Individual -> (Individual, Individual)
-crossover gen p ind1 ind2 = if ran > p then (crossed1, crossed2) else (ind1, ind2)
+crossover gen p ind1 ind2 = if ran < p then (crossed1, crossed2) else (ind1, ind2)
   where
     crossed1 = (take crossPoint ind1) ++ (drop crossPoint ind2)
     crossed2 = (take crossPoint ind2) ++ (drop crossPoint ind1)
