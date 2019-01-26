@@ -64,8 +64,13 @@ mutate gen p = map (possiblyInvert) . zip randomList
     possiblyInvert (ran, x) = if ran > p then x else not x
     randomList = randomRs (0.0, 1.0) gen
 
-crossover :: RandomGen g => g -> Float -> Individual -> Individual -> Individual
-crossover _gen _p ind1 _ind2 = ind1
+crossover :: RandomGen g => g -> Float -> Individual -> Individual -> (Individual, Individual)
+crossover gen p ind1 ind2 = if ran > p then (crossed1, crossed2) else (ind1, ind2)
+  where
+    crossed1 = (take crossPoint ind1) ++ (drop crossPoint ind2)
+    crossed2 = (take crossPoint ind2) ++ (drop crossPoint ind1)
+    (ran, gen') = randomR (0.0, 1.0) gen
+    (crossPoint, _) = randomR (1, length ind1 - 1) gen'
 
 compete :: Individual -> Individual -> Individual
 compete i1 i2 = if fitness i1 >= fitness i2 then i1 else i2
