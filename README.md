@@ -23,3 +23,16 @@ Assumes Haskell Stack installed.
 
 ##### Quit REPL
 `:q`
+
+## To run tests
+1. `stack test`
+
+### REPL
+1. `stack ghci max-ones-ga:max-ones-test`
+1. `main`
+
+##### Update project
+`:r`
+
+##### Quit REPL
+`:q`

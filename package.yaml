@@ -23,6 +23,7 @@ dependencies:
 - random
 - mtl
 - ConfigFile
+- QuickCheck
 
 library:
   source-dirs: src
