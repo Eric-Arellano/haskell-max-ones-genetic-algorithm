@@ -15,6 +15,7 @@ data ConfigInfo = ConfigInfo { seed :: Int
                              , numGenes :: Int
                              , numIndividuals :: Int
                              , numGenerations :: Int
+                             , tournamentSize :: Int
                              } deriving (Show)
 
 readConfig :: String -> IO ConfigInfo
@@ -30,6 +31,7 @@ readConfig f = do
         genesV <- CF.get cp "DEFAULT" "num_genes"
         individualsV <- CF.get cp "DEFAULT" "num_individuals"
         generationsV <- CF.get cp "DEFAULT" "num_generations"
+        tournamentSizeV <- CF.get cp "DEFAULT" "tournament_size"
 
         -- build config value
         return (ConfigInfo { seed = seedV
@@ -38,6 +40,7 @@ readConfig f = do
                            , numGenes = genesV
                            , numIndividuals = individualsV
                            , numGenerations = generationsV
+                           , tournamentSize = tournamentSizeV
                            })
     -- either error out or return value
     either (error . snd) (return) rv
