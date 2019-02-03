@@ -1,6 +1,7 @@
 # Haskell max ones genetic algorithm
-CSE 598 project to find the bit string with the most ones through a genetic algoirthm.
+CSE 598 project to find the bit string with the most ones through a genetic algorithm.
 
+Ended up finishing project with Python due to frustrations having to continually pass a new RandomGen every time I needed some random value. This became confusing and made the code more complicated. See https://github.com/Eric-Arellano/python-max-ones-genetic-algorithm.
 
 ## Prerequisites
 1. [Haskell Stack](https://docs.haskellstack.org/en/stable/README/#how-to-install)
@@ -36,3 +37,9 @@ Assumes Haskell Stack installed.
 
 ##### Quit REPL
 `:q`
+
+## Things I learned
+* The importance of a random seed for reproducibility. I never thought about this parameter until Haskell's pure functions made me.
+* How to install 3rd party libraries.
+* How to add and use language extensions, namely `ScopedTypeVariables`.
+* QuickCheck
